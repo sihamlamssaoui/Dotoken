@@ -77,25 +77,6 @@ contract DoToken is ERC721MetadataMintable, ERC721Burnable {
     }
 
 
-    function setTokenToUsed(uint256 _TokenId) 
-    public 
-    isTokenOwner(_TokenId)
-    {
-        doTokens[_TokenId].used = true;
-    }
-
-    
-
-    /** 
-    * @dev set eventStartDate (global)
-    */
-    function setEventStartDate(uint64 _eventStartDate) 
-    public 
-    EventNotStarted 
-    {
-        eventStartDate = _eventStartDate;
-    }
-
 
 /* GETTERS */
     /** 
@@ -163,24 +144,6 @@ contract DoToken is ERC721MetadataMintable, ERC721Burnable {
     }
 
 /* Additional functions */ 
-    
-    /** 
-    * @dev create initial Token struct and generate ID (only ever called by BuyToken function)
-    */
-    function _createToken() 
-    internal 
-    EventNotStarted 
-    isAvailable 
-    returns (uint256) 
-    {
-            doToken memory _Token = doToken({
-            price: initialTokenPrice,
-            forSale: bool(false),
-            used: bool(false)
-        });
-        uint256 newTokenId = doTokens.push(_Token) - 1;
-        return newTokenId;
-    }
 
     /** 
     * @dev mint a Token (primary market)
@@ -202,39 +165,6 @@ contract DoToken is ERC721MetadataMintable, ERC721Burnable {
         emit doTokenCreation(msg.sender, _TokenId);
     }
 
-    /** 
-    * @dev approve a specific buyer of the Token to buy my Token
-    */
-    function approveAsBuyer(address _buyer, uint256 _TokenId) 
-    public
-    EventNotStarted  
-    isTokenOwner(_TokenId)
-    {
-        approve(_buyer,_TokenId);
-    }
 
-    
 
-    /** 
-    * @dev burn a Token (if owner)
-    */
-    function destroyToken(uint256 _TokenId) 
-    public 
-    isTokenOwner(_TokenId) 
-    {
-        _burn(_TokenId);
-        emit doTokenDestruction(msg.sender, _TokenId);
-    }
-    
-    /** 
-    * @dev withdraw money stored in this contract
-    */
-    function withdrawBalance() 
-    public 
-    {
-        uint256 _contractBalance = uint256(address(this).balance);
-        OwnerAddress.transfer(_contractBalance);
-        emit BalanceWithdrawn(msg.sender,OwnerAddress,_contractBalance);
-    }
-}
 
