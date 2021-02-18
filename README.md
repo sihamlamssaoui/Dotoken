@@ -24,3 +24,11 @@ NB: the backend is not yet finished
 
 
 # Front end
+
+
+Please refer to this link and follow instruction to have a look or an idea what we want our front users to get and how it can look like.
+https://github.com/sihamlamssaoui/DoToken-
+
+## Many Thanks :)
+
+Please feel free to contact me for more information: sihamlamssaoui@gmail.com
